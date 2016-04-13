@@ -22,7 +22,10 @@ public class TaskDaoImp implements TaskDao {
     private static volatile TaskDaoImp instance;
 
     private TaskDaoImp(){}
-
+    /**
+     * singleton
+     * @return
+     */
     public static TaskDaoImp getInstance(){
         if (instance == null) {
             synchronized (TaskDaoImp.class){
@@ -34,6 +37,12 @@ public class TaskDaoImp implements TaskDao {
         return  instance;
     }
 
+    /**
+     * return list tasks for current user
+     * @param user
+     * @return
+     * @throws SQLException
+     */
     public List<Task> getTasksByUser(User user) throws SQLException {
         String sql = "SELECT * FROM task_manager.task where task.createTaskUser_id = ?;";
         List<Task> tasks = null;
@@ -42,7 +51,7 @@ public class TaskDaoImp implements TaskDao {
             statement = dbConnection.prepareStatement(sql);
             statement.setLong(1, user.getId());
             resultSet = statement.executeQuery();
-            tasks = ParseTask.getTasksBySql(resultSet);
+            tasks = ParseTask.getTasksByResultSet(resultSet);
             statement.close();
             dbConnection.commit();
         } catch (SQLException e) {
@@ -62,6 +71,11 @@ public class TaskDaoImp implements TaskDao {
         return tasks;
     }
 
+    /**
+     * save new task in db by current user
+     * @param task
+     * @throws SQLException
+     */
     public void save(Task task) throws SQLException {
         String sql = "INSERT INTO task_manager.task (title, description, createDate, status_id, createTaskUser_id) VALUES (?, ?, ?,?,?);";
         try {
@@ -93,6 +107,12 @@ public class TaskDaoImp implements TaskDao {
         }
     }
 
+    /**
+     * return task by taskId
+     * @param taskId
+     * @return
+     * @throws SQLException
+     */
     public Task getTaskById(Long taskId) throws SQLException {
         String sql = "SELECT * FROM task_manager.task where task.id = ?;";
 
@@ -102,7 +122,7 @@ public class TaskDaoImp implements TaskDao {
             statement = dbConnection.prepareStatement(sql);
             statement.setLong(1, taskId);
             resultSet = statement.executeQuery();
-            tasks = ParseTask.getTasksBySql(resultSet);
+            tasks = ParseTask.getTasksByResultSet(resultSet);
             statement.close();
             dbConnection.commit();
         } catch (SQLException e) {

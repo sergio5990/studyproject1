@@ -14,8 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParseTask {
-
-    public static List<Task> getTasksBySql(ResultSet resultSet) throws SQLException {
+    /**
+     * build list tasks of resultset
+     * @param resultSet
+     * @return
+     * @throws SQLException
+     */
+    public static List<Task> getTasksByResultSet(ResultSet resultSet) throws SQLException {
         List<Task> tasks = new ArrayList<Task>();
         UserDao userDao = UserDaoImp.getInstance();
         StatusDao statusDao = StatusDaoImp.getInstance();

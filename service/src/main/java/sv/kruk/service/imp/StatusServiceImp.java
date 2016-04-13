@@ -12,7 +12,10 @@ public class StatusServiceImp implements StatusService {
     private static volatile StatusServiceImp instance;
 
     private StatusServiceImp(){}
-
+    /**
+     * singleton
+     * @return
+     */
     public static StatusServiceImp getInstance(){
         if (instance == null) {
             synchronized (StatusServiceImp.class){
@@ -24,7 +27,11 @@ public class StatusServiceImp implements StatusService {
         return  instance;
     }
 
-    public List<Status> getAllStatus() {
+    /**
+     * return list status
+     * @return
+     */
+    public List<Status> getAll() {
         StatusDao statusDao =  StatusDaoImp.getInstance();
         List<Status> statusList = null;
         try {

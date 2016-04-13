@@ -12,6 +12,15 @@ public class SingInFilter implements Filter {
     public void destroy() {
     }
 
+    /**
+     * filter check user in session
+     * page where not need login:/404, /registration, /hello, /logout
+     * @param req
+     * @param resp
+     * @param chain
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest httpReq = (HttpServletRequest) req;
         HttpSession session = httpReq.getSession();

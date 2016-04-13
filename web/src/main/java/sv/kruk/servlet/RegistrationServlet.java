@@ -16,9 +16,16 @@ import java.io.IOException;
 public class RegistrationServlet extends HttpServlet {
     final static Logger logger = LoggerFactory.getLogger(RegistrationServlet.class);
 
+    /**
+     * sve new user of form parameter
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService userService = UserServiceImp.getInstance();
-        User user =  userService.registrUser(req.getParameter("username"),req.getParameter("password"));
+        User user =  userService.registrationUser(req.getParameter("username"), req.getParameter("password"));
         if (user != null) {
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
@@ -30,6 +37,13 @@ public class RegistrationServlet extends HttpServlet {
         }
     }
 
+    /**
+     * view form registration
+     * @param req
+     * @param res
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.setAttribute("msg", "page registration");

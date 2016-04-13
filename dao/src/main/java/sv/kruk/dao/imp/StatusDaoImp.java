@@ -23,7 +23,10 @@ public class StatusDaoImp implements StatusDao {
     private static volatile StatusDaoImp instance;
 
     private StatusDaoImp(){}
-
+    /**
+     * singleton
+     * @return
+     */
     public static StatusDaoImp getInstance(){
         if (instance == null) {
             synchronized (StatusDaoImp.class){
@@ -35,7 +38,12 @@ public class StatusDaoImp implements StatusDao {
         return  instance;
     }
 
-
+    /**
+     * return status by statusId
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     public Status getStatusById(long id) throws SQLException {
         String sql = "SELECT * FROM task_manager.status where status.id = ?;";
         Status status = null;
@@ -44,7 +52,7 @@ public class StatusDaoImp implements StatusDao {
             statement = dbConnection.prepareStatement(sql);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
-            status = ParseStatus.getStatusBySql(resultSet);
+            status = ParseStatus.getStatusResultSet(resultSet);
             statement.close();
             dbConnection.commit();
         } catch (SQLException e) {
@@ -64,6 +72,12 @@ public class StatusDaoImp implements StatusDao {
         return status;
     }
 
+    /**
+     * return status by statusName
+     * @param name
+     * @return
+     * @throws SQLException
+     */
     public Status getStatusByName(String name) throws SQLException {
         String sql = "SELECT * FROM task_manager.status where status.name = ?;";
         Status status = null;
@@ -72,7 +86,7 @@ public class StatusDaoImp implements StatusDao {
             statement = dbConnection.prepareStatement(sql);
             statement.setString(1, name);
             resultSet = statement.executeQuery();
-            status = ParseStatus.getStatusBySql(resultSet);
+            status = ParseStatus.getStatusResultSet(resultSet);
             statement.close();
             dbConnection.commit();
         } catch (SQLException e) {
@@ -92,6 +106,11 @@ public class StatusDaoImp implements StatusDao {
         return status;
     }
 
+    /**
+     * return all status
+     * @return
+     * @throws SQLException
+     */
     public List<Status> getAll() throws SQLException {
         String sql = "SELECT * FROM task_manager.status;";
         List<Status> statusList = null;
@@ -99,7 +118,7 @@ public class StatusDaoImp implements StatusDao {
             dbConnection = DataSource.getInstance().getConnection();
             statement = dbConnection.prepareStatement(sql);
             resultSet = statement.executeQuery();
-            statusList = ParseStatus.getStatusListBySql(resultSet);
+            statusList = ParseStatus.getStatusListByResultSet(resultSet);
             statement.close();
             dbConnection.commit();
         } catch (SQLException e) {

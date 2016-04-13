@@ -13,6 +13,7 @@
 <body>
     <h1>${msg}</h1>
     <h2>${login_error}</h2>
+    <%--login form--%>
     <form action="${pageContext.request.contextPath}/" method="post">
         Логин: <br />
         <input name="username" type="text" size="25" maxlength="30"/> <br />

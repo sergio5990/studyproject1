@@ -2,6 +2,8 @@ package sv.kruk.domain;
 
 import java.util.Date;
 
+// todo domain in new module
+// todo add comment for task
 
 public class Task {
     private Long id;

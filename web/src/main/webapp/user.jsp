@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>${msg}</h1>
+    <%-- user list--%>
 
     <c:forEach items="${users}" var="user">
         <ul>

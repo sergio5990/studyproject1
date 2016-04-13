@@ -5,6 +5,9 @@ import sv.kruk.domain.User;
 
 import java.util.List;
 
+/**
+ * method for use task
+ */
 public interface TaskService {
 
     public  void  save(String title, String description, User user);
@@ -13,5 +16,5 @@ public interface TaskService {
 
     Task getTaskById(Long taskId, User user);
 
-    void updateStatus(Long taskId, Long statusId);
+    void update(Long taskId, Long statusId);
 }

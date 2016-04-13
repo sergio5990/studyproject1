@@ -16,7 +16,10 @@ public class RoleDaoImp implements sv.kruk.dao.RoleDao {
     private static volatile RoleDaoImp instance;
 
     private RoleDaoImp(){}
-
+    /**
+     * singleton
+     * @return
+     */
     public static RoleDaoImp getInstance(){
         if (instance == null) {
             synchronized (RoleDaoImp.class){
@@ -28,6 +31,12 @@ public class RoleDaoImp implements sv.kruk.dao.RoleDao {
         return  instance;
     }
 
+    /**
+     * save new role in db
+     * @param role
+     * @return
+     * @throws SQLException
+     */
     public boolean save(String role) throws SQLException {
         String sql = "INSERT INTO task_manager.role (role_name) VALUES (?)";
         try {

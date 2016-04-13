@@ -15,6 +15,7 @@
 <h1>${msg}</h1>
 
 <h2>Создать новую задачу</h2>
+<%--input form--%>
     <form action="${pageContext.request.contextPath}/tasks" method="post">
         Название задачи: <br />
         <label>
@@ -29,6 +30,7 @@
 
     <h2>Текущие задачи</h2>
     <table border="2">
+        <%--task list--%>
         <c:forEach items="${tasks}" var="task">
             <tr>
                 <td><b><c:out value="${task.getTitle()}" /></b></td>

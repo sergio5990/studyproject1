@@ -8,8 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParseUser {
-
-    public static User getUserBySql(ResultSet resultSet) throws SQLException {
+    /**
+     * build user of resultset
+     * @param resultSet
+     * @return
+     * @throws SQLException
+     */
+    public static User getUserByResultSet(ResultSet resultSet) throws SQLException {
         User user = null;
         while (resultSet.next()) {
             user = new User();
@@ -21,7 +26,13 @@ public class ParseUser {
         return user;
     }
 
-    public static List<User> getUsersBySql(ResultSet resultSet) throws SQLException {
+    /**
+     * build list users of resultset
+     * @param resultSet
+     * @return
+     * @throws SQLException
+     */
+    public static List<User> getUsersByResultSet(ResultSet resultSet) throws SQLException {
         List<User> users = new ArrayList<User>();
         User user = null;
         while (resultSet.next()) {

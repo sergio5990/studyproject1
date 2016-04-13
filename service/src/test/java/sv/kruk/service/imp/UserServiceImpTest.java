@@ -23,9 +23,9 @@ public class UserServiceImpTest {
 
     @Test
     public void checkUser() throws Exception {
-        User user = userService.checkUser("a1b2c3","a1b2c3");
+        User user = userService.verificationUser("a1b2c3","a1b2c3");
         assertNull(user);
-        user = userService.checkUser("","");
+        user = userService.verificationUser("","");
         assertNull(user);
     }
 

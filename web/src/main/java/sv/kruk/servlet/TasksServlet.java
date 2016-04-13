@@ -15,6 +15,13 @@ import java.util.List;
 
 public class TasksServlet extends HttpServlet {
 
+    /**
+     * servlet save new task of form
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TaskService taskService = TaskServiceImp.getInstance();
@@ -27,6 +34,13 @@ public class TasksServlet extends HttpServlet {
         req.getRequestDispatcher("tasks.jsp").forward(req, resp);
     }
 
+    /**
+     *  servlet set all task for current user
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TaskService taskService = TaskServiceImp.getInstance();

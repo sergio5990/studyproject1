@@ -20,7 +20,10 @@ public class TaskServiceImp implements TaskService {
     private static volatile TaskServiceImp instance;
 
     private TaskServiceImp(){}
-
+    /**
+     * singleton
+     * @return
+     */
     public static TaskServiceImp getInstance(){
         if (instance == null) {
             synchronized (TaskServiceImp.class){
@@ -32,6 +35,12 @@ public class TaskServiceImp implements TaskService {
         return  instance;
     }
 
+    /**
+     * create new task for user of form parameter
+     * @param title
+     * @param description
+     * @param user
+     */
     public void save(String title, String description, User user) {
         if (title != null && !title.equals("")) {
             Task task = new Task(title, description);
@@ -52,6 +61,11 @@ public class TaskServiceImp implements TaskService {
         }
     }
 
+    /**
+     * return task list for current user
+     * @param user
+     * @return
+     */
     public List<Task> getTasksByUser(User user) {
         logger.info("tasks find by userId={}", user.getId());
         TaskDao taskDao = TaskDaoImp.getInstance();
@@ -64,6 +78,12 @@ public class TaskServiceImp implements TaskService {
         return tasks;
     }
 
+    /**
+     * return task of id from db
+     * @param taskId
+     * @param user
+     * @return
+     */
     public Task getTaskById(Long taskId, User user) {
         TaskDao taskDao =TaskDaoImp.getInstance();
         Task task = null;
@@ -78,7 +98,12 @@ public class TaskServiceImp implements TaskService {
         return task;
     }
 
-    public void updateStatus(Long taskId, Long statusId) {
+    /**
+     * update status task of id tasks ans new status
+     * @param taskId
+     * @param statusId
+     */
+    public void update(Long taskId, Long statusId) {
         TaskDao taskDao =TaskDaoImp.getInstance();
         taskDao.updateStatus(taskId, statusId);
     }

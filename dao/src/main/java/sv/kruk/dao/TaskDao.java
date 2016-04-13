@@ -6,6 +6,9 @@ import sv.kruk.domain.User;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * task use in db
+ */
 public interface TaskDao {
     List<Task> getTasksByUser(User user) throws SQLException;
 

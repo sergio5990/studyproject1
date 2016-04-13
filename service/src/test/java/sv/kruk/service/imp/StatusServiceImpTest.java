@@ -14,7 +14,7 @@ public class StatusServiceImpTest {
     @Test
     public void getAllStatus() throws Exception {
         StatusService statusService = StatusServiceImp.getInstance();
-        List<Status> statuses =  statusService.getAllStatus();
+        List<Status> statuses =  statusService.getAll();
         assertNotNull(statuses);
         assertFalse(statuses.isEmpty());
     }

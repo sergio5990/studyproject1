@@ -3,11 +3,6 @@ package sv.kruk.domain;
 
 import java.util.List;
 
-
-
-// todo domain in new module
-// todo add comment for task
-
 public class User {
 
     private Long id;

@@ -15,10 +15,17 @@ import java.io.IOException;
 public class HelloServlet extends HttpServlet {
     final static Logger logger = LoggerFactory.getLogger(HelloServlet.class);
 
+    /**
+     * check username and password of form parameter
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserService userService = UserServiceImp.getInstance();
-        User user = userService.checkUser(req.getParameter("username"), req.getParameter("password"));
+        User user = userService.verificationUser(req.getParameter("username"), req.getParameter("password"));
         if (user != null) {
             logger.info("user sing up, userId = {}", user.getId().toString());
             req.getSession().setAttribute("user", user);
@@ -30,6 +37,13 @@ public class HelloServlet extends HttpServlet {
         }
     }
 
+    /**
+     * index page
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("msg", "hello page");

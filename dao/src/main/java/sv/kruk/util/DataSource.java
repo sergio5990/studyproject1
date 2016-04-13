@@ -18,9 +18,12 @@ public class DataSource {
     private static DataSource datasource;
     private ComboPooledDataSource pooledDataSource;
 
+    /**
+     * load config db from resources file
+     */
     private static void config() {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        InputStream input = classLoader.getResourceAsStream("dataBase.properties");
+        InputStream input = classLoader.getResourceAsStream("database.properties");
         Properties prop = new Properties();
         try {
             // load a properties file
@@ -43,6 +46,12 @@ public class DataSource {
         }
     }
 
+    /**
+     * create datasource of parameter
+     * @throws IOException
+     * @throws SQLException
+     * @throws PropertyVetoException
+     */
     private DataSource() throws IOException, SQLException, PropertyVetoException {
         config();
         pooledDataSource = new ComboPooledDataSource();
@@ -56,7 +65,10 @@ public class DataSource {
         pooledDataSource.setMaxPoolSize(20);
         pooledDataSource.setMaxStatements(180);
     }
-
+    /**
+     * singleton
+     * @return
+     */
     public static DataSource getInstance() throws IOException, SQLException, PropertyVetoException {
         if (datasource == null) {
             datasource = new DataSource();
@@ -66,6 +78,11 @@ public class DataSource {
         }
     }
 
+    /**
+     * return connection from pool connection
+     * @return
+     * @throws SQLException
+     */
     public Connection getConnection() throws SQLException {
         Connection connection = this.pooledDataSource.getConnection();
         connection.setAutoCommit(false);

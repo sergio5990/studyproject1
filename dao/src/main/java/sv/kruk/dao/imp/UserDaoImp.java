@@ -26,6 +26,10 @@ public class UserDaoImp implements sv.kruk.dao.UserDao {
 
     private UserDaoImp(){}
 
+    /**
+     * singleton
+     * @return
+     */
     public static UserDaoImp getInstance(){
         if (instance == null) {
             synchronized (UserDaoImp.class){
@@ -37,6 +41,12 @@ public class UserDaoImp implements sv.kruk.dao.UserDao {
         return  instance;
     }
 
+    /**
+     * save new user in db
+     * @param user
+     * @return
+     * @throws SQLException
+     */
     public boolean save(User user) throws SQLException {
         String sql = "INSERT INTO task_manager.user (username, password) VALUES (?, ?);";
         try {
@@ -66,6 +76,12 @@ public class UserDaoImp implements sv.kruk.dao.UserDao {
         return true;
     }
 
+    /**
+     * update user parameter in db
+     * @param user
+     * @return
+     * @throws SQLException
+     */
     public boolean update(User user) throws SQLException {
         String sql = "UPDATE task_manager.user SET username=?, password=? WHERE id=?;";
         try {
@@ -93,6 +109,12 @@ public class UserDaoImp implements sv.kruk.dao.UserDao {
         return true;
     }
 
+    /**
+     * delete user from db
+     * @param user
+     * @return
+     * @throws SQLException
+     */
     public boolean delete(User user) throws SQLException {
         String sql = "DELETE FROM task_manager.user WHERE id=?;";
         try {
@@ -118,6 +140,12 @@ public class UserDaoImp implements sv.kruk.dao.UserDao {
         return true;
     }
 
+    /**
+     * find user in db by userId
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     public User getUserById(Long id) throws SQLException {
         String sql = "SELECT * FROM task_manager.user where id = ?;";
         User user = null;
@@ -126,7 +154,7 @@ public class UserDaoImp implements sv.kruk.dao.UserDao {
             statement = dbConnection.prepareStatement(sql);
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
-            user = ParseUser.getUserBySql(resultSet);
+            user = ParseUser.getUserByResultSet(resultSet);
             statement.close();
             dbConnection.commit();
         } catch (SQLException e) {
@@ -146,7 +174,13 @@ public class UserDaoImp implements sv.kruk.dao.UserDao {
         return user;
     }
 
-    public User getUserByName(String username) throws SQLException {
+    /**
+     * find user in db by username
+     * @param username
+     * @return
+     * @throws SQLException
+     */
+    public User getUserByUsername(String username) throws SQLException {
         String sql = "SELECT * FROM task_manager.user where user.username = ?;";
         User user = null;
         try {
@@ -154,7 +188,7 @@ public class UserDaoImp implements sv.kruk.dao.UserDao {
             statement = dbConnection.prepareStatement(sql);
             statement.setString(1, username);
             resultSet = statement.executeQuery();
-            user = ParseUser.getUserBySql(resultSet);
+            user = ParseUser.getUserByResultSet(resultSet);
             statement.close();
             dbConnection.commit();
         } catch (SQLException e) {
@@ -174,6 +208,11 @@ public class UserDaoImp implements sv.kruk.dao.UserDao {
         return user;
     }
 
+    /**
+     * return all user from db
+     * @return
+     * @throws SQLException
+     */
     public List<User> getAll() throws SQLException {
         String sql = "SELECT * FROM task_manager.user;";
         List<User> users = null;
@@ -181,7 +220,7 @@ public class UserDaoImp implements sv.kruk.dao.UserDao {
             dbConnection = DataSource.getInstance().getConnection();
             statement = dbConnection.prepareStatement(sql);
             resultSet = statement.executeQuery();
-            users = ParseUser.getUsersBySql(resultSet);
+            users = ParseUser.getUsersByResultSet(resultSet);
             statement.close();
             dbConnection.commit();
         } catch (SQLException e) {

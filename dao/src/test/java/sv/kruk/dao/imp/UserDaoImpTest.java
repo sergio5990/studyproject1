@@ -31,7 +31,7 @@ public class UserDaoImpTest {
 
     @Test
     public void getUserByName() throws Exception {
-        User user = userDao.getUserByName("admin");
+        User user = userDao.getUserByUsername("admin");
         assertNotNull(user);
     }
 

@@ -14,6 +14,10 @@ public class UserServiceImp implements UserService {
 
     private UserServiceImp(){}
 
+    /**
+     * singleton
+     * @return
+     */
     public static UserServiceImp getInstance(){
         if (instance == null) {
             synchronized (UserServiceImp.class){
@@ -25,13 +29,19 @@ public class UserServiceImp implements UserService {
         return  instance;
     }
 
-    public User registrUser(String username, String password) {
+    /**
+     * registration new user of username and password
+     * @param username
+     * @param password
+     * @return new user
+     */
+    public User registrationUser(String username, String password) {
         if (username != null && password != null) {
             User user = new User(username, password);
             UserDao userDao = UserDaoImp.getInstance();
             try {
                 userDao.save(user);
-                user = userDao.getUserByName(username);
+                user = userDao.getUserByUsername(username);
             } catch (SQLException e) {
                 e.printStackTrace();
                 return null;
@@ -41,7 +51,13 @@ public class UserServiceImp implements UserService {
         return null;
     }
 
-    public User checkUser(String username, String password) {
+    /**
+     * check user of equals password in db and form parameter
+     * @param username
+     * @param password
+     * @return
+     */
+    public User verificationUser(String username, String password) {
         if (username.equals("") || password.equals("")){
             return null;
         }
@@ -49,7 +65,7 @@ public class UserServiceImp implements UserService {
         User user = new User(username, password);
         User userDb = null;
         try {
-            userDb = userDao.getUserByName(username);
+            userDb = userDao.getUserByUsername(username);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,6 +77,10 @@ public class UserServiceImp implements UserService {
 
     }
 
+    /**
+     * get all user from db
+     * @return
+     */
     public List<User> getAll() {
         UserDao userDao = UserDaoImp.getInstance();
         List<User> users = null;
