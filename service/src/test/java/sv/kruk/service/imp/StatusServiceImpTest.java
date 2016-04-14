@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNotNull;
 public class StatusServiceImpTest {
 
     @Test
-    public void getAllStatus() throws Exception {
+    public void getAll() throws Exception {
         StatusService statusService = StatusServiceImp.getInstance();
         List<Status> statuses =  statusService.getAll();
         assertNotNull(statuses);

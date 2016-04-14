@@ -22,11 +22,13 @@ public class UserServiceImpTest {
     }
 
     @Test
-    public void checkUser() throws Exception {
+    public void verificationUser() throws Exception {
         User user = userService.verificationUser("a1b2c3","a1b2c3");
         assertNull(user);
         user = userService.verificationUser("","");
         assertNull(user);
+        user = userService.verificationUser("admin","admin");
+        assertNotNull(user);
     }
 
     @Test

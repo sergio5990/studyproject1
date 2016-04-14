@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class RegistrationServlet extends HttpServlet {
-    final static Logger logger = LoggerFactory.getLogger(RegistrationServlet.class);
+    final private static Logger logger = LoggerFactory.getLogger(RegistrationServlet.class);
 
     /**
      * sve new user of form parameter
@@ -24,10 +24,11 @@ public class RegistrationServlet extends HttpServlet {
      * @throws IOException
      */
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        if (session.getAttribute("user") != null){return;}
         UserService userService = UserServiceImp.getInstance();
         User user =  userService.registrationUser(req.getParameter("username"), req.getParameter("password"));
         if (user != null) {
-            HttpSession session = req.getSession();
             session.setAttribute("user", user);
             logger.info("user register userID={}", user.getId());
             resp.sendRedirect("tasks");
